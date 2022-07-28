@@ -48,17 +48,15 @@ jobs:
       - name: set up node
         uses: actions/setup-node@v2.1.2
         with:
-          node-version: 16.0.0
+          node-version: 16.13.1
 
       - name: install semantic-release
         run: npm install @semantic-release/exec
 
       - name: run semantic release
         id: new_release
-        run: |
-          nextRelease="`npx semantic-release@^19.0.0 --branches main --dryRun | grep -oP 'Published release \K.*? ' || true`"
+        run:
           npx semantic-release@^19.0.0 --branches main
-          echo "::set-output name=tag::$nextRelease"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
